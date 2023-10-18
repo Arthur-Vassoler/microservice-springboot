@@ -1,7 +1,8 @@
 package br.com.microlog.user.communs;
 
 import br.com.microlog.user.models.UserModel;
-import br.com.microlog.user.services.UserService;
+import br.com.microlog.user.repositories.UserRepository;
+import br.com.microlog.user.services.AuthorizationService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,12 +18,12 @@ import java.io.IOException;
 @Component
 public class AuthTokenFilter extends OncePerRequestFilter {
   private final JwtUtils jwtUtils;
-  private final UserService userService;
+  private final AuthorizationService authorizationService;
 
-  public AuthTokenFilter(JwtUtils jwtUtils, UserService userService) {
+  public AuthTokenFilter(JwtUtils jwtUtils, AuthorizationService authorizationService) {
     super();
     this.jwtUtils = jwtUtils;
-    this.userService = userService;
+    this.authorizationService = authorizationService;
   }
 
   @Override
@@ -34,7 +35,7 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
       if (jwt != null && jwtUtils.validateJwtToken(jwt)) {
         String username = jwtUtils.getEmailFromJwtToken(jwt);
-        UserModel user = (UserModel) userService.loadUserByUsername(username);
+        UserModel user = (UserModel) authorizationService.loadUserByUsername(username);
 
         UsernamePasswordAuthenticationToken authentication =
           new UsernamePasswordAuthenticationToken(

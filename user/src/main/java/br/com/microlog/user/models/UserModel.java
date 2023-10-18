@@ -44,7 +44,7 @@ public class UserModel implements Serializable, UserDetails {
 
   @Override
   public String getUsername() {
-    return this.email;
+    return email;
   }
 
   @Override

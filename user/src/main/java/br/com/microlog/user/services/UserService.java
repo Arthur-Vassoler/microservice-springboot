@@ -5,7 +5,6 @@ import br.com.microlog.user.models.UserModel;
 import br.com.microlog.user.producers.UserProducer;
 import br.com.microlog.user.repositories.UserRepository;
 import org.springframework.dao.DuplicateKeyException;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,10 +35,6 @@ public class UserService {
   }
 
   public UserModel findByUsername(String username) throws UsernameNotFoundException {
-    return this.userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
-  }
-
-  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     return this.userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado."));
   }
 }

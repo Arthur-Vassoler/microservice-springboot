@@ -1,19 +1,19 @@
 package br.com.microlog.user.communs;
 
-import java.security.Key;
-import java.util.Date;
-
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Component;
-
+import br.com.microlog.user.models.UserModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.InvalidKeyException;
 import io.jsonwebtoken.security.Keys;
 import jakarta.servlet.http.HttpServletRequest;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
-@Component
+import java.security.InvalidKeyException;
+import java.security.Key;
+import java.util.Date;
+
+@Service
 public class JwtUtils {
   @Value("${jwt.secret}")
   private String jwtSecret;
