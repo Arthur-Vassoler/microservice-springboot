@@ -1,6 +1,8 @@
 package br.com.microlog.user.producers;
 
+import br.com.microlog.user.dtos.CodeRecoveryEmailDto;
 import br.com.microlog.user.dtos.EmailDto;
+import br.com.microlog.user.enums.TypeCodeRecoveryEnum;
 import br.com.microlog.user.models.UserModel;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,16 +16,41 @@ public class UserProducer {
     this.rabbitTemplate = rabbitTemplate;
   }
 
-  @Value(value = "${broker.queue.email.name}")
-  private String routingKey;
+  @Value(value = "${broker.queue.new.user.email.name}")
+  private String saveUserRoutingKey;
 
-  public void publishMessageEmail(UserModel userModel) {
+  @Value(value = "${broker.queue.code.recovery.email.name}")
+  private String codeRecoveryRoutingKey;
+
+  @Value(value = "${broker.queue.code.recovery.successfully.email.name}")
+  private String codeRecoverySuccessfullyRoutingKey;
+
+  public void publishCodeRecoveryMessageEmail(UserModel userModel, String token, TypeCodeRecoveryEnum typeCodeRecoveryEnum) {
+    var emailDto = new CodeRecoveryEmailDto();
+    emailDto.setUserId(userModel.getUserId());
+    emailDto.setUsername(userModel.getName());
+    emailDto.setEmailTo(userModel.getEmail());
+    emailDto.setToken(token);
+    emailDto.setTypeCodeRecovery(typeCodeRecoveryEnum);
+
+    rabbitTemplate.convertAndSend("", codeRecoveryRoutingKey, emailDto);
+  }
+
+  public void publishNewUserMessageEmail(UserModel userModel) {
     var emailDto = new EmailDto();
     emailDto.setUserId(userModel.getUserId());
+    emailDto.setUsername(userModel.getName());
     emailDto.setEmailTo(userModel.getEmail());
-    emailDto.setSubject("Cadastro realizado com sucesso!");
-    emailDto.setText(userModel.getName() + ", seja bem vindo(a)! \nAgradecemos o seu cadastro, aproveite agora todos os recursos da nossa plataforma!");
 
-    rabbitTemplate.convertAndSend("", routingKey, emailDto);
+    rabbitTemplate.convertAndSend("", saveUserRoutingKey, emailDto);
+  }
+
+  public void publishCodeRecoverySuccessfullyMessageEmail(UserModel userModel, TypeCodeRecoveryEnum typeCodeRecovery) {
+    var emailDto = new CodeRecoveryEmailDto();
+    emailDto.setUserId(userModel.getUserId());
+    emailDto.setEmailTo(userModel.getEmail());
+    emailDto.setTypeCodeRecovery(typeCodeRecovery);
+
+    rabbitTemplate.convertAndSend("", codeRecoverySuccessfullyRoutingKey, emailDto);
   }
 }

@@ -1,6 +1,5 @@
 package br.com.microlog.user.communs;
 
-import br.com.microlog.user.models.UserModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;

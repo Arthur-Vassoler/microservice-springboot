@@ -12,9 +12,33 @@ public class RabbitMQConfig {
   @Value("${broker.queue.email.name}")
   private String queue;
 
+  @Value("${broker.queue.new.user.email.name}")
+  private String newUserQueue;
+
+  @Value("${broker.queue.code.recovery.email.name}")
+  private String codeRecoveryPasswordQueue;
+
+  @Value("${broker.queue.code.recovery.successfully.email.name}")
+  private String codeRecoveryPasswordSuccessfullyQueue;
+
   @Bean
   public Queue queue() {
     return new Queue(queue, true);
+  }
+
+  @Bean
+  public Queue newUserQueue() {
+    return new Queue(newUserQueue, true);
+  }
+
+  @Bean
+  public Queue codeRecoveryPasswordQueue() {
+    return new Queue(codeRecoveryPasswordQueue, true);
+  }
+
+  @Bean
+  public Queue codeRecoveryPasswordSuccessfullyQueue() {
+    return new Queue(codeRecoveryPasswordSuccessfullyQueue, true);
   }
 
   @Bean

@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Collection;
@@ -16,6 +17,7 @@ import java.util.UUID;
 @Table(name = "TB_USERS")
 @Data
 public class UserModel implements Serializable, UserDetails {
+  @Serial
   private static final long serialVersionUID = 1L;
 
   @Id
