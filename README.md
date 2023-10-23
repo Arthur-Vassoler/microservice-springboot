@@ -22,10 +22,6 @@ Este projeto visa criar uma arquitetura de microservices para facilitar o regist
 - Ele é acionado pelo serviço de cadastro de usuário quando um novo usuário é registrado.
 - Tecnologias utilizadas: Java 17 - Spring Boot 3.1.4 - PostgreSQL
 
-## Contribuição
-
-- Se você deseja contribuir para este projeto, siga as diretrizes de contribuição no arquivo CONTRIBUTING.md.
-
 ## Contato
 
 - Autor: Arthur Vassoler
