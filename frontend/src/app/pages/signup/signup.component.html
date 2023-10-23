@@ -1,0 +1,41 @@
+<section class="signup-component">
+  <mat-card>
+    <form [formGroup]="form">
+			<mat-card-header>
+        <mat-card-title>
+          Cadastro
+        </mat-card-title>
+      </mat-card-header>
+
+      <mat-card-content>
+        <div class="grid-container">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="name" placeholder="Nome">
+            <mat-error *ngIf="form.get('name')?.errors">Nome é obrigatório</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" placeholder="Email">
+            <mat-error *ngIf="form.get('email')?.errors">Email é obrigatório</mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Senha</mat-label>
+            <input matInput type="password" formControlName="password" placeholder="Senha">
+            <mat-error *ngIf="form.get('password')?.errors">Senha é obrigatória</mat-error>
+          </mat-form-field>
+        </div>
+      </mat-card-content>
+
+      <mat-card-actions class="full-width">
+        <button mat-flat-button
+          [disabled]="form.invalid"
+          (click)="save()"
+          color="primary"
+        >Cadastrar</button>
+      </mat-card-actions>
+    </form>
+  </mat-card>
+</section>

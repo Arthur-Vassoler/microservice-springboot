@@ -1,0 +1,37 @@
+<section class="login-component">
+	<mat-card class="login">
+		<div class="form-container">
+			<mat-card-header>
+				<mat-card-title>Login</mat-card-title>
+			</mat-card-header>
+
+			<form [formGroup]="loginForm">
+				<mat-card-content>
+					<mat-form-field appearance="outline">
+					  <mat-label>E-mail</mat-label>
+					  <input matInput formControlName="email" type="email" placeholder="Digite seu E-mail">
+					  <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">E-mail obrigatório.</mat-error>
+					  <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">Formato de E-mail inválido.</mat-error>
+					</mat-form-field>
+
+					<mat-form-field appearance="outline">
+						<mat-label>Senha</mat-label>
+						<input matInput formControlName="password" type="password" placeholder="Digite sua Senha">
+
+						<mat-error *ngIf="loginForm.get('password')?.errors?.['required']">Senha obrigatório.</mat-error>
+						<mat-error *ngIf="loginForm.get('password')?.errors?.['password']">Formato de Senha invalido.</mat-error>
+						<mat-error *ngIf="loginForm.get('password')?.errors?.['minlength']">Senha deve conter 3 ou mais caracteres.</mat-error>
+					</mat-form-field>
+
+					<mat-card-actions>
+						<button mat-flat-button color="primary" (click)="login()" [disabled]="loginForm.invalid"> ACESSAR MINHA CONTA </button>
+					</mat-card-actions>
+
+					<p>Ainda não possui conta?<br>
+						<a routerLink="/signup"><strong><u> Clique aqui para se cadastrar </u></strong></a>
+					</p>
+				</mat-card-content>
+			</form>
+		</div>
+	</mat-card>
+</section>

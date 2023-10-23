@@ -1,0 +1,14 @@
+<header class="app-header">
+  <mat-toolbar>
+    <span class="spacer"></span>
+    <div class="links-toolbar">
+      <ng-container *ngIf="user$ | async as pessoaUsuaria; else login">
+        <button mat-stroked-button color="primary" (click)="logout()">SAIR</button>
+      </ng-container>
+      <ng-template #login>
+        <button routerLink="/signup" mat-raised-button color="primary">CADASTRE-SE</button>
+        <button routerLink="/signin" mat-stroked-button>LOGIN</button>
+      </ng-template>
+    </div>
+  </mat-toolbar>
+</header>
